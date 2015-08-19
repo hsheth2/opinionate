@@ -3,5 +3,8 @@ class MainController < ApplicationController
       @trends = Trend.order("id DESC").all
   end
   def view_trend
+      @trend = Trend.find(params[:id])
+      @title = @trend.name
+      @posts = @trend.posts.order("score DESC").all
   end
 end

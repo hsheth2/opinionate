@@ -20,23 +20,23 @@
 <div class="row">
     <!-- $trends = $mysqli->query("SELECT id, name FROM trends ORDER BY id DESC"); -->
     <% @trends.each_with_index do |trend, i| %>
-        <a href="view_trend/<%= trend.id %>" class="index-tile">
-        <div class="col-xs-4 row-pad">
-            <div class="inner-trend panel panel-default">
-                <div class="panel-header">
-                    <h3><%= trend.name %></h3>
-                    <small><%= pluralize(trend.count, "opinions") %></small>
-                </div>
-                <div class="panel-body home">
-                    <div style="overflow: hidden; height: 60px;" class="inner-stuff">
-                        <% trend.list_x(10).each do |pst| %>
-                            <%= pst.content %><hr />
-                        <% end %>
+        <%= link_to({:controller => 'main', :action => 'view_trend', :id => trend.id}, class: 'index-tile') do %>
+            <div class="col-xs-4 row-pad">
+                <div class="inner-trend panel panel-default">
+                    <div class="panel-header">
+                        <h3><%= trend.name %></h3>
+                        <small><%= pluralize(trend.count, "opinions") %></small>
+                    </div>
+                    <div class="panel-body home">
+                        <div style="overflow: hidden; height: 60px;" class="inner-stuff">
+                            <% trend.list_x(10).each do |pst| %>
+                                <%= pst.content %><hr />
+                            <% end %>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </a>
+        <% end %>
         <% if i % 3 == 2 %>
             </div><div class="row">
         <% end %>
