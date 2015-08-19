@@ -6,6 +6,6 @@ class Trend < ActiveRecord::Base
   end
 
   def list_x(n)
-      self.posts.where(trend_id: self.id).take(n)
+      self.posts.take(n)
   end
 end

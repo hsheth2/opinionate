@@ -1,6 +1,3 @@
-<!-- <h1>Main#view_trend</h1>
-<p>Find me in app/views/main/view_trend.html.erb</p> -->
-
 <title>Opinionate - <%= @title %></title>
 
 <%= link_to(:controller => 'main', :action => 'index') do %><div class="header-area">
@@ -26,7 +23,7 @@
         </div>
     </div>
 </div>
-<% unless params[:search].nil? %>
+<% if @search %>
     <script>
         function refreshStuff() {
             console.log("Refreshed with "+window.location.href);

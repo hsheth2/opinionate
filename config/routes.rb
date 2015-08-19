@@ -1,4 +1,9 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
+  mount Resque::Server.new, at: "/resque"
+
+  get 'main/submit/:name', to: 'main#submit', as: :main_submit
   get 'main/view_trend/:id', to: 'main#view_trend', as: :main_view_trend
 
   get 'main/index'
