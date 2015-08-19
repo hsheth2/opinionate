@@ -1,0 +1,79 @@
+<!-- <h1>Main#view_trend</h1>
+<p>Find me in app/views/main/view_trend.html.erb</p> -->
+<?php
+
+if (!isset($_GET['trendID'])){
+    header('Location: index.php');
+    exit;
+}
+
+$trendSQL = 'SELECT * FROM trends WHERE id = ' . $_GET['trendID'];
+$trendQueryResult = $mysqli->query($trendSQL);
+$trendArray = $trendQueryResult->fetch_assoc();
+$title = $trendArray['name'];
+
+$getPostsFromTrend = 'SELECT * FROM posts WHERE trend_id = ' . $_GET['trendID'] . ' ORDER BY score DESC';
+$postsQueryResult = $mysqli->query($getPostsFromTrend);
+$posts = array();
+
+while ($row = $postsQueryResult->fetch_assoc()) $posts[] = $row;
+
+?>
+<title>Opinionate - <?php echo $title; // FIXME: THIS ?></title>
+
+<a href="index.php"><div class="header-area">
+    <h1 style="font-size: 50px;">Opinionate</h1>
+    <h5>Spreading the voice of the people</h5>
+</div></a>
+
+<div class="header-area2">
+    <h1><?php echo htmlentities($title, ENT_COMPAT, 'UTF-8'); ?></h1>
+</div>
+<?php
+    function renderBox($post) { // ported already to ruby in helper
+        if ($post['source'] === 'YouTube') {
+            echo '<div class="panel panel" style="border: 0; border-radius: 0; background-color: transparent">';
+            echo '<iframe frameborder="0" allowfullscreen src="https://www.youtube.com/embed/' . $post['service_id'] . '" width=100% height=360 style="border-radius: none;" frameborder=0></iframe>';
+            // echo '<div style="position: relative; box-sizing: border-box; padding-top:100%;"><object style="width:88%; position: absolute;" data="https://www.youtube.com/embed/' . $post['service_id'] . '"></object></div>';
+            echo "</div>";
+        } else { //($post['source'] === 'Twitter' || $post['source'] === "Reddit") {
+            echo '<div class="inner-trend panel panel-default">';
+            echo '<div class="panel-header"><h3><a href="'.$post['url'].'">' . ((isset($post['poster']) && trim($post['poster']) !== "") ? trim($post['poster']) : "Untitled Post") . '</a> <i class="thumb-up-down fa fa-thumbs-' . ($post['sentiment']==="1" ? "up green" : "down red") . '"></i></h3><small>From ' . $post['source'] . '</small></div>';
+            echo '<div class="panel-body home">';
+            echo processLinks($post['content']);
+            echo "</div>";
+            echo "</div>";
+        }
+    }
+
+    function processLinks($str) {
+        return preg_replace('/((https?:)?\\/\\/[^\\s]+)/', '<a style="font-weight: bold;" href="\\1" target="_BLANK">\\1</a>', $str);
+    }
+?>
+<div class="container" id="posts_all">
+    <div class="row">
+        <div class="col-xs-6">
+        <?php for ($i = 0; $i < count($posts); $i+=2){
+            renderBox($posts[$i]);
+        } ?>
+        </div>
+        <div class="col-xs-6">
+        <?php for ($i = 1; $i < count($posts); $i+=2){
+            renderBox($posts[$i]);
+        } ?>
+        </div>
+    </div>
+</div>
+<?php
+    if(isset($_GET["search"])) {
+        ?>
+        <script>
+            function refreshStuff() {
+                console.log("Refreshed with "+window.location.href);
+                $("#posts_all").load(window.location.href+" #posts_all");
+            }
+            setInterval(refreshStuff, 4000);
+        </script>
+        <?php
+    }
+?>

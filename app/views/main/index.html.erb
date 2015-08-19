@@ -1,0 +1,75 @@
+<!-- <h1>Main#index</h1>
+<p>Find me in app/views/main/index.html.erb</p> -->
+
+<div class="header-area">
+    <h1 style="font-size: 50px;">Opinionate</h1>
+    <h5>Spreading the voice of the people</h5>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+        <div class="input-group">
+          <input type="text" class="form-control" id="search-field" placeholder="Search for opinions...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="search-button">Search</button>
+          </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+  </div>
+  </br>
+<div class="row">
+    <!-- $trends = $mysqli->query("SELECT id, name FROM trends ORDER BY id DESC"); -->
+    <% @trends.each_with_index do |trend, i| %>
+        <a href="view_trend.php?trendID=<%= trend.id %>" class="index-tile">
+        <div class="col-xs-4 row-pad">
+            <div class="inner-trend panel panel-default">
+                <div class="panel-header">
+                    <h3><%= trend.name %></h3>
+                    <small><%= pluralize(trend.count, "opinions") %></small>
+                </div>
+                <div class="panel-body home">
+                    <div style="overflow: hidden; height: 60px;" class="inner-stuff">
+                        <% trend.list_x(10).each do |pst| %>
+                            <%= pst.content %><hr />
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </a>
+        <% if i % 3 == 2 %>
+            </div><div class="row">
+        <% end %>
+    <% end %>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+    $(".panel").mouseover(function() {
+        console.log("mouseover!");
+        var inner = $(this).find(".inner-stuff");
+        inner.delay(300).animate({
+            scrollTop: inner[0].scrollHeight - inner.height()
+        }, 18*(inner[0].scrollHeight),"linear");
+    });
+    $(".panel").mouseout(function() {
+        console.log("mouseout!");
+        $(this).find(".inner-stuff").dequeue().stop();
+    });
+    $("#search-button").click(function() {
+        $.ajax({
+            url: "submit.php",
+            data: {
+                trend: $("#search-field").val()
+            },
+            success: function(data) {
+                console.log(data+"&search=true");
+                window.location = data+"&search=true";
+            }
+        }).fail(function(data) {
+            console.log(data);
+            console.log("wat");
+        });
+    });
+});
+</script>
