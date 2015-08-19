@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'main/view_trend'
+  get 'main/view_trend/:id', to: 'main#view_trend', as: :main_view_trend
 
   get 'main/index'
 

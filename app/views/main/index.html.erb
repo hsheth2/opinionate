@@ -20,7 +20,7 @@
 <div class="row">
     <!-- $trends = $mysqli->query("SELECT id, name FROM trends ORDER BY id DESC"); -->
     <% @trends.each_with_index do |trend, i| %>
-        <a href="view_trend.php?trendID=<%= trend.id %>" class="index-tile">
+        <a href="view_trend/<%= trend.id %>" class="index-tile">
         <div class="col-xs-4 row-pad">
             <div class="inner-trend panel panel-default">
                 <div class="panel-header">
