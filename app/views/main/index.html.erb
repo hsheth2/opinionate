@@ -52,7 +52,7 @@ $(function() {
         console.log("mouseout!");
         $(this).find(".inner-stuff").dequeue().stop();
     });
-    $("#search-button").click(function() {
+    function search() {
         console.log("Submit form");
         var search = $("#search-field").val();
         console.log(search);
@@ -70,6 +70,12 @@ $(function() {
         //     console.log(data);
         //     console.log("wat");
         // });
+    };
+    $("#search-button").click(search);
+    $("#search-field").keyup(function(event){
+        if(event.keyCode == 13) {
+            $("#search-button").click();
+        }
     });
 });
 </script>

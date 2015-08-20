@@ -6,7 +6,7 @@
     <div class="inner-trend panel panel-default">
         <div class="panel-header">
             <h3>
-                <a href="<%= post.url %>">
+                <a href="<%= post.url %>" target="_blank">
                     <%= ((post.poster.nil? || post.poster.strip.empty?) ? "Untitled Post" : post.poster.strip) %>
                 </a>
                 <i class="thumb-up-down fa fa-thumbs-<%= (post.sentiment ? 'up green' : 'down red') %>"></i>
