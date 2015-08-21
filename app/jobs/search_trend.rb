@@ -29,7 +29,7 @@ class SearchTrend
         puts "Twitter pulled"
     rescue => error
         puts "Twitter failed"
-        error.backtrace
+        puts error.backtrace
     end
     #API_KEY = "AIzaSyBHN9R5r4pg0z826PWgJvEn3RVoqHpzfZ4"
 
@@ -46,14 +46,14 @@ class SearchTrend
               puts "Success"
             rescue => error
               puts "Failed"
-              error.backtrace
+              puts error.backtrace
             end
           end
         end
         puts "Youtube pulled"
     rescue => error
         puts "Youtube failed"
-        error.backtrace
+        puts error.backtrace
     end
 
     # Pull Reddit
@@ -68,14 +68,14 @@ class SearchTrend
               puts "Success"
             rescue => error
               puts "Failed"
-              error.backtrace
+              puts error.backtrace
             end
           end
         end
         puts "Reddit pulled"
     rescue => error
         puts "Reddit failed"
-        error.backtrace
+        puts error.backtrace
     end
   end
 end
