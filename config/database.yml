@@ -24,4 +24,9 @@ test:
   <<: *default
 
 production:
-  <<: *default
+  adapter: mysql2
+  database: opinionate
+  username: root
+  password: 81hshaL;
+  host: 127.0.0.1
+  port: 3306

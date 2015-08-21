@@ -10,18 +10,25 @@
 </div>
 
 <div class="container" id="posts_all">
-    <div class="row">
-        <div class="col-xs-6">
-            <% (0...@posts.length).step(2).each do |i| %>
-                <%= render partial: 'render_box', locals: {post: @posts[i]}%>
-            <% end %>
+    <input type="hidden" name="opinions" value="<%= @posts.length %>">
+    <% if @posts.length == 0 %>
+        <div class="row" style="text-align: center; margin-top: 50px;">
+            <h3>Loading...</h3>
         </div>
-        <div class="col-xs-6">
-            <% (1...@posts.length).step(2).each do |i| %>
-                <%= render partial: 'render_box', locals: {post: @posts[i]}%>
-            <% end %>
+    <% elsif %>
+        <div class="row">
+            <div class="col-xs-6">
+                <% (0...@posts.length).step(2).each do |i| %>
+                    <%= render partial: 'render_box', locals: {post: @posts[i]} %>
+                <% end %>
+            </div>
+            <div class="col-xs-6">
+                <% (1...@posts.length).step(2).each do |i| %>
+                    <%= render partial: 'render_box', locals: {post: @posts[i]} %>
+                <% end %>
+            </div>
         </div>
-    </div>
+    <% end %>
 </div>
 <% if @search %>
     <script>
@@ -29,6 +36,6 @@
             console.log("Refreshed with "+window.location.href);
             $("#posts_all").load(window.location.href+" #posts_all");
         }
-        setInterval(refreshStuff, 4000);
+        setInterval(refreshStuff, 1000);
     </script>
 <% end %>
