@@ -6,3 +6,14 @@ require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
 task 'resque:setup' => :environment
+
+# desc "Custom Startup Routine"
+# task :task_name => [:dependent, :tasks] do
+#     RedisRunner.start
+#
+# end
+#
+# desc "Custom Shutdown Routine"
+# task :task_name => [:dependent, :tasks] do
+#     RedisRunner.stop
+# end

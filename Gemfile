@@ -3,8 +3,14 @@ ruby "2.2.2"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+group :development do
+    # Use sqlite3 as the database for Active Record
+    gem 'sqlite3'
+    gem 'mysql2'
+end
+group :production do
+    gem 'pg'
+end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,7 +30,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'resque'
 gem 'resque-scheduler'
-gem 'mysql2'
+gem 'resque-task'
+
 
 gem 'indico'
 gem 'gdata', git: 'https://github.com/agentrock/gdata.git'
