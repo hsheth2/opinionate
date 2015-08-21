@@ -10,7 +10,7 @@ class PullTrends
     end
     trends = client.trends(2367105).attrs[:trends]
     trends.each do |trend|
-      puts "Found trend: "+trend[:name]
+      puts "Twitter Found trend: "+trend[:name]
       unless Trend.find_by(name: trend[:name], query: trend[:query])
         tre = Trend.create!(name: trend[:name], query: trend[:query])
         Resque.enqueue(SearchTrend, tre.id)

@@ -17,14 +17,19 @@ class SearchTrend
         tweets.each do |tweet|
           unless Post.find_by(url: tweet.url) || tweet.full_text.blank?
             begin
+              puts "Processing tweet: "+tweet.url
               Post.create(source: "Twitter", url: tweet.url,content: tweet.full_text, trend: trend, score: 2 * tweet.favorite_count + 6 * tweet.retweet_count, poster: tweet.user.screen_name)
-            rescue
+              puts "Success"
+            rescue => error
+              puts "Failed"
+              puts error.backtrace
             end
           end
         end
         puts "Twitter pulled"
-    rescue
+    rescue => error
         puts "Twitter failed"
+        error.backtrace
     end
     #API_KEY = "AIzaSyBHN9R5r4pg0z826PWgJvEn3RVoqHpzfZ4"
 
@@ -36,14 +41,19 @@ class SearchTrend
         vids.each do |vid|
           unless Post.find_by(service_id: vid['video_id'])
             begin
+              puts "Processing YouTube video: "+vid['id']
               Post.create(service_id: vid['video_id'], source: 'YouTube', url: vid['id'], content: vid['content'], trend: trend, score: 0, poster: vid['title'])
-            rescue
+              puts "Success"
+            rescue => error
+              puts "Failed"
+              error.backtrace
             end
           end
         end
         puts "Youtube pulled"
-    rescue
+    rescue => error
         puts "Youtube failed"
+        error.backtrace
     end
 
     # Pull Reddit
@@ -53,14 +63,19 @@ class SearchTrend
         results.each do |result|
           unless Post.find_by(service_id: result.title)
             begin
+              puts "Processing Reddit post: "+result.permalink
               Post.create(service_id: result.title, source: 'Reddit', url: "http://www.reddit.com/"+result.permalink, content: result.title, trend: trend, score: result.score * 7, poster: result.author)
-            rescue
+              puts "Success"
+            rescue => error
+              puts "Failed"
+              error.backtrace
             end
           end
         end
         puts "Reddit pulled"
-    rescue
+    rescue => error
         puts "Reddit failed"
+        error.backtrace
     end
   end
 end

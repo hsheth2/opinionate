@@ -7,6 +7,7 @@ class GoogleTrends
     open(url) do |http|
       trends = Nokogiri::XML(Nokogiri::XML(http.read).css('content').text).css('li').map(&:text)
       trends.each do |trend|
+         puts "Google Found trend: "+trend
         unless Trend.find_by(name: trend)
           tre = Trend.create!(name: trend)
           Resque.enqueue(SearchTrend, tre.id)
