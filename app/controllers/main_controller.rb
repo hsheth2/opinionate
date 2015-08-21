@@ -6,7 +6,7 @@ class MainController < ApplicationController
   def view_trend
       @trend = Trend.find(params[:id])
       @title = @trend.name
-      @posts = @trend.posts.order("score DESC").all
+      @posts = @trend.posts.order("score ASC").all
       @search = ! params[:submit].nil?
   end
 
