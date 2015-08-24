@@ -36,3 +36,5 @@ bower.json
 .powenv
 
 foreman.logs
+GoogleTrends.log
+TwitterTrends.log

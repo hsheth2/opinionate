@@ -2,6 +2,11 @@ class SearchTrend
   @queue = :trends
 
   def self.perform(trend_id)
+    #$stdout.reopen("search_trend#{trend_id}.log", "w")
+    #$stdout.sync = true
+    #$stdout.reopen($stdout)
+    #File.open("search_trend_#{trend_id}.log", "w") do |out|
+
     trend = Trend.find(trend_id)
 
     # Pull Twitter
@@ -13,23 +18,23 @@ class SearchTrend
           config.access_token_secret = "2XUZ30cUcwwnBFCLUr4Gt0ibbgWwzU5tReIyMtAzGBm7Q"
         end
         tweets = client.search(trend.name, count: 100, lang: "en", result_type: "popular")
-        puts "Searched trend: "+trend.name
+        #out.puts "Searched trend: "+trend.name
         tweets.each do |tweet|
           unless Post.find_by(url: tweet.url) || tweet.full_text.blank?
             begin
-              puts "Processing tweet: "+tweet.url
+              #out.puts "Processing tweet: "+tweet.url
               Post.create(source: "Twitter", url: tweet.url,content: tweet.full_text, trend: trend, score: 2 * tweet.favorite_count + 6 * tweet.retweet_count, poster: tweet.user.screen_name)
-              puts "Success"
+              #out.puts "Success"
             rescue => error
-              puts "Failed"
-              puts error.backtrace
+              #out.puts "Failed"
+              #out.puts error.backtrace
             end
           end
         end
-        puts "Twitter pulled"
+        #out.puts "Twitter pulled"
     rescue => error
-        puts "Twitter failed"
-        puts error.backtrace
+        #out.puts "Twitter failed"
+        #out.puts error.backtrace
     end
     #API_KEY = "AIzaSyBHN9R5r4pg0z826PWgJvEn3RVoqHpzfZ4"
 
@@ -37,23 +42,23 @@ class SearchTrend
     begin
         #vids = YoutubeSearch.search(trend.name, 'orderby' => 'viewCount', 'time' => 'this_week').take(3)
         vids = YoutubeSearch.search(trend.name).take(3)
-        puts "YoutubeSearch success"
+        #out.puts "YoutubeSearch success"
         vids.each do |vid|
           unless Post.find_by(service_id: vid['video_id'])
             begin
-              puts "Processing YouTube video: "+vid['id']
+              #out.puts "Processing YouTube video: "+vid['id']
               Post.create(service_id: vid['video_id'], source: 'YouTube', url: vid['id'], content: vid['content'], trend: trend, score: 0, poster: vid['title'])
-              puts "Success"
+              #out.puts "Success"
             rescue => error
-              puts "Failed"
-              puts error.backtrace
+              #out.puts "Failed"
+              #puts error.backtrace
             end
           end
         end
-        puts "Youtube pulled"
+        #out.puts "Youtube pulled"
     rescue => error
-        puts "Youtube failed"
-        puts error.backtrace
+        #out.puts "Youtube failed"
+        #puts error.backtrace
     end
 
     # Pull Reddit
@@ -63,19 +68,20 @@ class SearchTrend
         results.each do |result|
           unless Post.find_by(service_id: result.title)
             begin
-              puts "Processing Reddit post: "+result.permalink
+              #out.puts "Processing Reddit post: "+result.permalink
               Post.create(service_id: result.title, source: 'Reddit', url: "http://www.reddit.com/"+result.permalink, content: result.title, trend: trend, score: result.score * 7, poster: result.author)
-              puts "Success"
+              #out.puts "Success"
             rescue => error
-              puts "Failed"
-              puts error.backtrace
+              #out.puts "Failed"
+              #out.puts error.backtrace
             end
           end
         end
-        puts "Reddit pulled"
+        #out.puts "Reddit pulled"
     rescue => error
-        puts "Reddit failed"
-        puts error.backtrace
+        #out.puts "Reddit failed"
+        #out.puts error.backtrace
     end
+    #end
   end
 end
