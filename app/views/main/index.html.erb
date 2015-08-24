@@ -26,19 +26,13 @@
                                 <% if trend.count != 0 %>
                                     <br>
                                     <span class="home-<%= (trend.average_sentiment >= 0.495 ? 'green' : 'red') %>">
-                                        <% positive = (100 * trend.average_sentiment).round
-                                           if positive >= 50
-                                               concat positive.to_s + "% positive"
-                                           else
-                                               concat (100-positive).to_s + "% negative"
-                                           end
-                                        %>
+                                        <%= (100 * trend.average_sentiment).round %>% positive
                                     </span>
                                 <% end %>
                             </small>
                         </div>
                         <div class="panel-body home">
-                            <div style="overflow: hidden; height: 60px; margin-top: 1px;" class="inner-stuff">
+                            <div style="overflow: hidden; height: 60px; margin-top: 3px;" class="inner-stuff">
                                 <% trend.list_x(10).each do |pst| %>
                                     <%= pst.content %><hr />
                                 <% end %>
