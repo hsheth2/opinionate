@@ -1,5 +1,5 @@
 # Opinionate
-Opinionate gathers different people's opinions on a variety of trending topics.
+Opinionate gathers different people's opinions on a variety of trending topics. It was created at the MIT Blueprint Hackathon by Harshal Sheth, Michael Colavita, Alok Puranik, and Nihar Sheth, where it won the 2nd place prize.
 
 ## Requirements
 * Ruby 2.2.2
