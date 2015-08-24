@@ -9,7 +9,7 @@
                 <a href="<%= post.url %>" target="_blank">
                     <%= ((post.poster.nil? || post.poster.strip.empty?) ? "Untitled Post" : post.poster.strip) %>
                 </a>
-                <i class="thumb-up-down fa fa-thumbs-<%= (post.sentiment ? 'up green' : 'down red') %>"></i>
+                <i class="thumb-up-down fa fa-thumbs-<%= (post.sentiment >= 0.5 ? 'up green' : 'down red') %>"></i>
             </h3>
             <small>From <%= post.source %></small>
         </div>

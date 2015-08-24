@@ -12,32 +12,51 @@
             </span>
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
-  </div>
-  </br>
-<div class="row">
-    <% @trends.each_with_index do |trend, i| %>
-        <%= link_to({:controller => 'main', :action => 'view_trend', :id => trend.id}, class: 'index-tile') do %>
+    </div>
+    </br>
+    <div class="row">
+        <% @trends.each_with_index do |trend, i| %>
             <div class="col-xs-4 row-pad">
-                <div class="inner-trend panel panel-default">
-                    <div class="panel-header">
-                        <h3><%= trend.name %></h3>
-                        <small><%= pluralize(trend.count, "opinions") %></small>
-                    </div>
-                    <div class="panel-body home">
-                        <div style="overflow: hidden; height: 60px;" class="inner-stuff">
-                            <% trend.list_x(10).each do |pst| %>
-                                <%= pst.content %><hr />
-                            <% end %>
+                <%= link_to({:controller => 'main', :action => 'view_trend', :id => trend.id}, class: 'index-tile') do %>
+                    <div class="inner-trend panel panel-default">
+                        <div class="panel-header">
+                            <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <span style="max-width: 250px; display:inline-block; text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">
+                                    <%= trend.name %>
+                                </span>
+                            </h3>
+                            <small <% concat "style='margin-top: 11px;'".html_safe unless trend.count == 0 %>>
+                                <%= pluralize(trend.count, "opinions") %>
+                                <% if trend.count != 0 %>
+                                    <br>
+                                    <span class="home-<%= (trend.average_sentiment >= 0.5 ? 'green' : 'red') %>">
+                                        <% positive = (100 * trend.average_sentiment).round
+                                           if positive >= 50
+                                               concat positive.to_s + "% positive"
+                                           else
+                                               concat (100-positive).to_s + "% negative"
+                                           end
+                                        %>
+                                    </span>
+                                    <!-- <i class="thumb-up-down fa fa-thumbs-<%= (trend.average_sentiment >= 0.5 ? 'up green' : 'down red') %>"></i> -->
+                                <% end %>
+                            </small>
+                        </div>
+                        <div class="panel-body home">
+                            <div style="overflow: hidden; height: 60px;" class="inner-stuff">
+                                <% trend.list_x(10).each do |pst| %>
+                                    <%= pst.content %><hr />
+                                <% end %>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% end %>
             </div>
+            <% if i % 3 == 2 %>
+                </div><div class="row">
+            <% end %>
         <% end %>
-        <% if i % 3 == 2 %>
-            </div><div class="row">
-        <% end %>
-    <% end %>
-</div>
+    </div>
 </div>
 <script type="text/javascript">
 $(function() {

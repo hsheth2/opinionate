@@ -3,9 +3,8 @@ class Post < ActiveRecord::Base
 
   def determine_sentiment
     #print "Getting sentiment... "
-    sentiment = Indico.sentiment(self.content)
-    self.sentiment = (sentiment >= 0.5)
-    #puts "Sentiment found to be #{sentiment} -> #{self.sentiment}."
+    self.sentiment = Indico.sentiment(self.content)
+    #puts "Sentiment found to be #{self.sentiment}."
   end
 
   def scrub_self

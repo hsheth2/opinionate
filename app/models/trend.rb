@@ -1,11 +1,15 @@
 class Trend < ActiveRecord::Base
-  has_many :posts
+    has_many :posts
 
-  def count
+    def count
       self.posts.size
-  end
+    end
 
-  def list_x(n)
+    def list_x(n)
       self.posts.take(n)
-  end
+    end
+
+    def average_sentiment
+      posts.average(:sentiment)
+    end
 end
