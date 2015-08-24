@@ -6,7 +6,7 @@ class Trend < ActiveRecord::Base
     end
 
     def list_x(n)
-      self.posts.take(n)
+      self.posts.order("score ASC").take(n)
     end
 
     def average_sentiment

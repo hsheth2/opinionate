@@ -1,6 +1,10 @@
 class MainController < ApplicationController
   def index
-      @trends = Trend.order("id DESC").all
+      all_trends = Trend.order("id DESC").all
+      @trends = Array.new
+      all_trends.each do |t|
+          @trends << t unless t.count == 0
+      end 
   end
 
   def view_trend

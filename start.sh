@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-foreman start > foreman.logs 2>&1 &
+foreman start -c resque=4,web=1 > foreman.logs 2>&1 &

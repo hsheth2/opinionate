@@ -33,6 +33,12 @@
    background-color: #ef5350;
    color: #ffffff;
  }
+.footer a {
+    color: #fff;
+}
+.footer a:hover {
+    color: #fff;
+}
 
 
  /* Custom page CSS
@@ -142,7 +148,7 @@
  }
 
  .home-red {
-     color: #CC0000;
+     color: #DE5050;
  }
  .home-green {
      color: green;

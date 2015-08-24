@@ -15,16 +15,24 @@
         <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+        <%= stylesheet_link_tag 'application' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     </head>
     <body>
-  <%= stylesheet_link_tag 'application' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= link_to(:controller => 'main', :action => 'index') do %><div class="header-area">
+      <h1 style="font-size: 50px;">Opinionate</h1>
+      <h5>People's opinions on everything</h5>
+  </div><% end %>
 
 <%= yield %>
 
 <footer class="footer">
     <div class="container">
-        <p style="text-align: center; margin: 10px 0;">Copyright (c) 2015. Created at MIT Blueprint.</p>
+        <p style="text-align: center; margin: 10px 0;">
+            Copyright (c) 2015. Created at MIT Blueprint.
+            Sentiment Analysis Powered by <a href="https://indico.io/models" target="_blank">Indico.io</a>.
+        </p>
     </div>
 </footer>
 

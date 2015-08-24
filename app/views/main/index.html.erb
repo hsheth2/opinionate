@@ -1,7 +1,3 @@
-<div class="header-area">
-    <h1 style="font-size: 50px;">Opinionate</h1>
-    <h5>Spreading the voice of the people</h5>
-</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3">
@@ -29,7 +25,7 @@
                                 <%= pluralize(trend.count, "opinions") %>
                                 <% if trend.count != 0 %>
                                     <br>
-                                    <span class="home-<%= (trend.average_sentiment >= 0.5 ? 'green' : 'red') %>">
+                                    <span class="home-<%= (trend.average_sentiment >= 0.495 ? 'green' : 'red') %>">
                                         <% positive = (100 * trend.average_sentiment).round
                                            if positive >= 50
                                                concat positive.to_s + "% positive"
@@ -38,7 +34,6 @@
                                            end
                                         %>
                                     </span>
-                                    <!-- <i class="thumb-up-down fa fa-thumbs-<%= (trend.average_sentiment >= 0.5 ? 'up green' : 'down red') %>"></i> -->
                                 <% end %>
                             </small>
                         </div>
@@ -76,19 +71,6 @@ $(function() {
         var search = $("#search-field").val();
         console.log(search);
         window.location = "./submit/"+search;
-        // $.ajax({
-        //     url: "./submit/"+search,
-        //     data: {
-        //         trend: search
-        //     },
-        //     success: function(data) {
-        //         console.log(data+"&search=true");
-        //         window.location = data+"&search=true";
-        //     }
-        // }).fail(function(data) {
-        //     console.log(data);
-        //     console.log("wat");
-        // });
     };
     $("#search-button").click(search);
     $("#search-field").keyup(function(event){
