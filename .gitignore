@@ -35,6 +35,9 @@ bower.json
 # Ignore pow environment settings
 .powenv
 
+# Logs
 foreman.logs
 GoogleTrends.log
 TwitterTrends.log
+dump.rdb
+.tags*

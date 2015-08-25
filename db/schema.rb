@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222212601) do
+ActiveRecord::Schema.define(version: 20150824004351) do
 
   create_table "posts", force: :cascade do |t|
     t.integer  "trend_id",   limit: 4
     t.string   "source",     limit: 255
     t.string   "url",        limit: 255
     t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.boolean  "sentiment",  limit: 1
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.decimal  "sentiment",                precision: 6, scale: 5
     t.string   "service_id", limit: 255
     t.integer  "score",      limit: 4
     t.string   "poster",     limit: 255
