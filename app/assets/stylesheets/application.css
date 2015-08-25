@@ -41,12 +41,18 @@
 }
 
 
+/* Non-Responsive */
+.container {
+    /* Set width to your desired site width */
+    width: 1170px !important;
+}
+
  /* Custom page CSS
  -------------------------------------------------- */
  /* Not required for template or sticky footer method. */
 
  .header-area {
-     text-align: center;
+     /*text-align: center;*/
      color: #FFFFFF;
  }
  .inner-trend {
