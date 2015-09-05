@@ -47,6 +47,10 @@
     width: 1170px !important;
 }
 
+footer {
+    min-width: 1170px;
+}
+
  /* Custom page CSS
  -------------------------------------------------- */
  /* Not required for template or sticky footer method. */
