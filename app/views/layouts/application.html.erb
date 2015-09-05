@@ -4,7 +4,8 @@
     <title>Opinionate</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- For Font Awesome -->
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
@@ -42,10 +43,43 @@
 
 <!-- Info Line -->
 <div class="container">
-  <p class="lead" style="font-weight: normal; font-size: 1.8em; text-align:center; color: white;">Reactions to trending topics from Twitter and Reddit</p>
+  <p class="lead" style="font-weight: normal; font-size: 1.8em; text-align:center; color: white;">Reactions to trending topics from Twitter and Reddit.</p>
 </div>
 
-<%= yield %>
+<div class="container">
+    <!-- Search Bar -->
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+        <div class="input-group">
+            <input type="text" class="form-control" id="search-field" name="search-field" placeholder="Explore opinions on a custom topic...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="search-button">Search</button>
+            </span>
+        </div><!-- /input-group -->
+      </div><!-- /.col-lg-6 -->
+    </div>
+    </br>
+    <%= yield %>
+</div>
+
+<!-- Search Bar JS -->
+<script type="text/javascript">
+$(function() {
+    // Search bar functionality
+    function search() {
+        console.log("Submit form");
+        var search = $("#search-field").val();
+        console.log(search);
+        window.location = "./submit/"+search;
+    };
+    $("#search-button").click(search);
+    $("#search-field").keyup(function(event){
+        if(event.keyCode == 13) {
+            $("#search-button").click();
+        }
+    });
+});
+</script>
 
 <!-- Footer -->
 <footer class="footer">

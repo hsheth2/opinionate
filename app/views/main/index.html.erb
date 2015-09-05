@@ -1,55 +1,46 @@
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
-        <div class="input-group">
-            <input type="text" class="form-control" id="search-field" name="search-field" placeholder="Search for opinions...">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" id="search-button">Search</button>
-            </span>
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-    </div>
-    </br>
-    <div class="row">
-        <% @trends.each_with_index do |trend, i| %>
-            <div class="col-xs-4 row-pad">
-                <%= link_to({:controller => 'main', :action => 'view_trend', :id => trend.id}, class: 'index-tile') do %>
-                    <div class="inner-trend panel panel-default">
-                        <div class="panel-header">
-                            <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                <span style="max-width: 250px; display:inline-block; text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">
-                                    <%= trend.name %>
+<div class="row">
+    <% @trends.each_with_index do |trend, i| %>
+        <div class="col-xs-4 row-pad">
+            <%= link_to({:controller => 'main', :action => 'view_trend', :id => trend.id}, class: 'index-tile') do %>
+                <div class="inner-trend panel panel-default">
+                    <div class="panel-header">
+                        <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <span style="max-width: 250px; display:inline-block; text-overflow:ellipsis; overflow:hidden; white-space: nowrap;">
+                                <%= trend.name %>
+                            </span>
+                        </h3>
+                        <small <% concat "style='margin-top: 11px;'".html_safe unless trend.count == 0 %>>
+                            <%= pluralize(trend.count, "opinions") %>
+                            <% if trend.count != 0 %>
+                                <br>
+                                <span class="home-<%= (trend.average_sentiment >= 0.495 ? 'green' : 'red') %>">
+                                    <%= (100 * trend.average_sentiment).round %>% positive
                                 </span>
-                            </h3>
-                            <small <% concat "style='margin-top: 11px;'".html_safe unless trend.count == 0 %>>
-                                <%= pluralize(trend.count, "opinions") %>
-                                <% if trend.count != 0 %>
-                                    <br>
-                                    <span class="home-<%= (trend.average_sentiment >= 0.495 ? 'green' : 'red') %>">
-                                        <%= (100 * trend.average_sentiment).round %>% positive
-                                    </span>
-                                <% end %>
-                            </small>
+                            <% end %>
+                        </small>
+                    </div>
+                    <div class="panel-body home" style="padding-bottom: 2px;">
+                        <div style="overflow: hidden; height: 108px; margin-top: 3px;" class="inner-stuff">
+                            <% trend.list_x(5).each do |pst| %>
+                                <%= pst.content %><hr />
+                            <% end %>
+                            Click to read more...
                         </div>
-                        <div class="panel-body home">
-                            <div style="overflow: hidden; height: 100px; margin-top: 3px;" class="inner-stuff">
-                                <% trend.list_x(5).each do |pst| %>
-                                    <%= pst.content %><hr />
-                                <% end %>
-                                Click to read more...
-                            </div>
+                        <div style="padding-left: auto; padding-right: auto; text-align:center;">
+                            <i style="color: black;" class="fa fa-caret-down"></i>
                         </div>
                     </div>
-                <% end %>
-            </div>
-            <% if i % 3 == 2 %>
-                </div><div class="row">
+                </div>
             <% end %>
+        </div>
+        <% if i % 3 == 2 %>
+            </div><div class="row">
         <% end %>
-    </div>
+    <% end %>
 </div>
 <script type="text/javascript">
 $(function() {
+    // Scrolling
     $(".panel").mouseover(function() {
         console.log("mouseover!");
         var inner = $(this).find(".inner-stuff");
@@ -60,18 +51,6 @@ $(function() {
     $(".panel").mouseout(function() {
         console.log("mouseout!");
         $(this).find(".inner-stuff").dequeue().stop();
-    });
-    function search() {
-        console.log("Submit form");
-        var search = $("#search-field").val();
-        console.log(search);
-        window.location = "./submit/"+search;
-    };
-    $("#search-button").click(search);
-    $("#search-field").keyup(function(event){
-        if(event.keyCode == 13) {
-            $("#search-button").click();
-        }
     });
 });
 </script>
