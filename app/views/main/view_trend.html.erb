@@ -6,44 +6,46 @@
     </div>
 </div>
 
-<div class="container" id="posts_all">
-    <input type="hidden" name="opinions" value="<%= @posts.length %>">
-    <% if @posts.length == 0 %>
-        <div id="result_none" class="row" style="text-align: center; margin-top: 50px; color: #ffffff; padding-bottom: 30px;">
-            <h3>Loading...<br><br><i style="font-size: 3em;" class="fa fa-spinner fa-pulse"></i></h3>
-        </div>
-    <% elsif %>
-        <div id="result_success" class="row">
-            <div class="col-xs-6">
-                <% (0...@posts.length).step(2).each do |i| %>
-                    <%= render partial: 'render_box', locals: {post: @posts[i]} %>
-                <% end %>
+<div id="posts_all_wrapper">
+    <div class="container" id="posts_all">
+        <input type="hidden" name="opinions" value="<%= @posts.length %>">
+        <% if @posts.length == 0 %>
+            <div id="result_none" class="row" style="text-align: center; margin-top: 50px; color: #ffffff; padding-bottom: 30px;">
+                <h3>Loading...<br><br><i style="font-size: 3em;" class="fa fa-spinner fa-pulse"></i></h3>
             </div>
-            <div class="col-xs-6">
-                <% (1...@posts.length).step(2).each do |i| %>
-                    <%= render partial: 'render_box', locals: {post: @posts[i]} %>
-                <% end %>
+        <% elsif %>
+            <div id="result_success" class="row">
+                <div class="col-xs-6">
+                    <% (0...@posts.length).step(2).each do |i| %>
+                        <%= render partial: 'render_box', locals: {post: @posts[i]} %>
+                    <% end %>
+                </div>
+                <div class="col-xs-6">
+                    <% (1...@posts.length).step(2).each do |i| %>
+                        <%= render partial: 'render_box', locals: {post: @posts[i]} %>
+                    <% end %>
+                </div>
             </div>
+        <% end %>
+        <div style="display: none; color: white; text-align: center; margin-top: 50px; padding-bottom: 30px;" id="search_fail">
+            <h3>Your search returned no results. Try searching for a different trend.</h3>
         </div>
-    <% end %>
-    <div style="display: none; color: white; text-align: center; margin-top: 50px; padding-bottom: 30px;" id="search_fail">
-        <h3>Your search returned no results. Try searching for a different trend.</h3>
     </div>
-</div>
-<% if @search %>
-    <script>
-        function refreshStuff() {
-            console.log("Refreshed with "+window.location.href);
-            $("#posts_all").load(window.location.href+" #posts_all");
-        }
-        var refresh_id = setInterval(refreshStuff, 1000);
-        setTimeout(function(){
-            console.log("Timeout")
-            clearInterval(refresh_id);
-            if ($("#result_none").length != 0) {
-                $("#search_fail").css("display", "block");
-                $("#result_none").css("display", "none");
+    <% if @search %>
+        <script>
+            function refreshStuff() {
+                console.log("Refreshed with "+window.location.href);
+                $("#posts_all_wrapper").load(window.location.href+" #posts_all");
             }
-        }, 7000);
-    </script>
-<% end %>
+            var refresh_id = setInterval(refreshStuff, 1000);
+            setTimeout(function(){
+                console.log("Timeout")
+                clearInterval(refresh_id);
+                if ($("#result_none").length != 0) {
+                    $("#search_fail").css("display", "block");
+                    $("#result_none").css("display", "none");
+                }
+            }, 9000);
+        </script>
+    <% end %>
+</div>
