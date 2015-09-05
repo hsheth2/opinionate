@@ -32,10 +32,11 @@
                             </small>
                         </div>
                         <div class="panel-body home">
-                            <div style="overflow: hidden; height: 60px; margin-top: 3px;" class="inner-stuff">
-                                <% trend.list_x(10).each do |pst| %>
+                            <div style="overflow: hidden; height: 100px; margin-top: 3px;" class="inner-stuff">
+                                <% trend.list_x(5).each do |pst| %>
                                     <%= pst.content %><hr />
                                 <% end %>
+                                Click to read more...
                             </div>
                         </div>
                     </div>
