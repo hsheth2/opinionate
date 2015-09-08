@@ -6,7 +6,9 @@ class Post < ActiveRecord::Base
 
   def determine_sentiment
     #print "Getting sentiment... "
-    self.sentiment = Indico.sentiment_hq(self.content)
+    text = self.content
+    n = text.gsub(/((https?:)?\/\/[^\s]+)/, '')
+    self.sentiment = Indico.sentiment_hq(n)
     #puts "Sentiment found to be #{self.sentiment}."
   end
 
