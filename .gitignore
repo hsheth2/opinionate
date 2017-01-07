@@ -10,6 +10,7 @@ capybara-*.html
 /spec/tmp
 **.orig
 rerun.txt
+opinionate-old/
 pickle-email-*.html
 
 # Secrets
