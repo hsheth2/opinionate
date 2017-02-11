@@ -3,7 +3,7 @@ class GoogleTrends
   @queue = :trends
 
   def self.perform
-    url = 'http://www.google.com/trends/hottrends/atom/hourly'
+    url = 'https://www.google.com/trends/hottrends/atom/hourly'
     open(url) do |http|
       trends = Nokogiri::XML(Nokogiri::XML(http.read).css('content').text).css('li').map(&:text)
       trends.each do |trend|
