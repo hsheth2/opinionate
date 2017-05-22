@@ -8,7 +8,7 @@ class SearchTrend
     #File.open("search_trend_#{trend_id}.log", "w") do |out|
 
     trend = Trend.find(trend_id)
-    output = true
+    output = false
     full = true
 
     # Pull Twitter
