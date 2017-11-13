@@ -19,5 +19,8 @@ To create the database and tables, run `rake db:create db:migrate`. Running `rel
 Starting the server is a simple as running `start.sh`. To stop the server, run `stop.sh`. To check if the server is running, run `on.sh`. To restart the server if you have updated the code, run `restart.sh`.
 Every few hours, `reload.sh` should be run to update Opinionate with the latest trends. It should be run with the server running in the background, so that Resque can fetch related posts from Twitter and Reddit for each of the new trends.
 
+## Deployment with Docker
+To deploy with docker, run `rebuild.sh` with MySQL and Redis already running.
+
 ## License
 Opinionate is released under the GNU General Public License version 2.
