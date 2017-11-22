@@ -17,8 +17,8 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 COPY env.sh .
 RUN . ./env.sh
 
-COPY crontab .
-RUN crontab crontab
+#COPY crontab .
+#RUN crontab crontab
 
 CMD cron && . ./env.sh && (rm tmp/pids/server.pid || true) && bundle exec foreman start -c resque=4,web=1
 
