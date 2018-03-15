@@ -1,0 +1,27 @@
+version: '2'
+services:
+  db:
+    image: mysql:5
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=BrICiLIsOhREsmoRno
+  web:
+    build: .
+    command: /usr/bin/supervisord
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: production
+      REDIS_URL: redis://redis
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis
+    volumes:
+      - ./tmp/redis:/data
+
