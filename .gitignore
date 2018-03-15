@@ -12,6 +12,8 @@ capybara-*.html
 rerun.txt
 opinionate-old/
 pickle-email-*.html
+/supervisord.log
+/supervisord.pid
 
 # Secrets
 config/initializers/secret_token.rb
