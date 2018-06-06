@@ -2,6 +2,7 @@ version: '2'
 services:
   db:
     image: mysql:5
+    restart: always
     volumes:
       - ./tmp/db:/var/lib/mysql
     environment:
@@ -22,4 +23,5 @@ services:
       - redis
   redis:
     image: redis
+    restart: always
 
