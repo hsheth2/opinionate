@@ -1,1 +1,1 @@
-40 12 */4 * * cd /app && . ./env.sh && ./reload.sh
+40 12 */5 * * cd /app && . ./env.sh && ./reload.sh
