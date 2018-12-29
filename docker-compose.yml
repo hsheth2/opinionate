@@ -4,7 +4,7 @@ services:
     image: mysql:5
     restart: always
     volumes:
-      - ./tmp/db:/var/lib/mysql
+      - db-data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=BrICiLIsOhREsmoRno
   web:
@@ -16,6 +16,7 @@ services:
     environment:
       RAILS_ENV: production
       REDIS_URL: redis://redis
+      MYSQL_ROOT_PASSWORD: BrICiLIsOhREsmoRno
     ports:
       - "3000:3000"
     depends_on:
@@ -25,3 +26,5 @@ services:
     image: redis
     restart: always
 
+volumes:
+  db-data:
