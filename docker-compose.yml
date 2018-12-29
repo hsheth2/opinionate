@@ -11,8 +11,6 @@ services:
     build: .
     command: /usr/bin/supervisord
     restart: always
-    volumes:
-      - .:/app
     environment:
       RAILS_ENV: production
       REDIS_URL: redis://redis

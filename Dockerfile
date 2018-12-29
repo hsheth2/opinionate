@@ -17,22 +17,17 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-# connect volume (`pwd`) using -v `pwd`:/app
-
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
 RUN pwd && ls
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
-COPY env.sh .
-RUN . ./env.sh
-COPY crontab .
-
-# set up supervisor
+# Set up supervisor
 RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-#CMD cron && . ./env.sh && (rm tmp/pids/server.pid || true) && bundle exec foreman start -c resque=4,web=1
+
+COPY . .
 
 CMD ["/usr/bin/supervisord"]
 
