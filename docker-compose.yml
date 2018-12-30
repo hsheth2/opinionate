@@ -1,4 +1,5 @@
 version: '2'
+
 services:
   db:
     image: mysql:5
@@ -9,14 +10,21 @@ services:
       - MYSQL_ROOT_PASSWORD=BrICiLIsOhREsmoRno
   web:
     build: .
-    command: /usr/bin/supervisord
     restart: always
     environment:
       RAILS_ENV: production
       REDIS_URL: redis://redis
       MYSQL_ROOT_PASSWORD: BrICiLIsOhREsmoRno
-    ports:
-      - "3000:3000"
+    expose:
+      - 3000
+    networks:
+      - traefik
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.frontend.rule=Host:opinionate.sheth.io"
+      - "traefik.port=3000"
     depends_on:
       - db
       - redis
@@ -26,3 +34,7 @@ services:
 
 volumes:
   db-data:
+
+networks:
+  traefik:
+    external: true
