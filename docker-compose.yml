@@ -7,7 +7,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=BrICiLIsOhREsmoRno
+      MYSQL_ROOT_PASSWORD: BrICiLIsOhREsmoRno
   web:
     build: .
     restart: always
@@ -21,10 +21,10 @@ services:
       - traefik
       - default
     labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-      - "traefik.frontend.rule=Host:opinionate.sheth.io"
-      - "traefik.port=3000"
+      traefik.enable: true
+      traefik.docker.network: "traefik"
+      traefik.port: 3000
+      traefik.frontend.rule: Host:opinionate.sheth.io
     depends_on:
       - db
       - redis
