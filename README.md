@@ -17,6 +17,7 @@ When setting up Opinionate, you will have to create the `config/database.yml` an
 To create the database and tables, run `rake db:create db:schema:load`. The `refresh-trends.sh` command will update the database with the newest trends from Google Trends and Twitter Trends. Note that this command should be used only if a Resque worker is also running (it will be if the server has been started).
 
 ## Deployment
+Create a file called `env.sh` which defines the variable `SECRET_KEY_BASE`.
 The server can be started using docker-compose. On first run, initialize the database by running `docker-compose exec web rake db:create db:schema:load`.
 
 ## License
