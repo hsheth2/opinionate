@@ -25,6 +25,10 @@ services:
       traefik.docker.network: "traefik"
       traefik.port: 3000
       traefik.frontend.rule: Host:opinionate.sheth.io
+      traefik.frontend.headers.SSLRedirect: true
+      traefik.frontend.headers.STSPreload: true
+      traefik.frontend.headers.STSSeconds: 2628000
+      traefik.frontend.headers.STSIncludeSubdomains: true
     depends_on:
       - db
       - redis
