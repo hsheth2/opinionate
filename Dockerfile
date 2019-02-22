@@ -19,7 +19,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
-RUN gem install bundler && bundle install --jobs 20 --retry 5
+RUN gem install bundler -v 1.17.3 && bundle install --jobs 20 --retry 5
 
 # Set up supervisor
 RUN mkdir -p /var/log/supervisor
