@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    image: mysql:5
+    image: hsheth2/mysql-low-memory:5
     restart: always
     volumes:
       - db-data:/var/lib/mysql
