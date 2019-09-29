@@ -22,15 +22,13 @@ services:
       - default
     labels:
       traefik.enable: true
-      traefik.docker.network: "traefik"
       traefik.port: 3000
-      traefik.frontend.rule: Host:opinionate.sheth.io,opinionate.ml,www.opinionate.ml
-      traefik.frontend.redirect.regex: ^https?://(?:www.)?opinionate.ml/(.*)
-      traefik.frontend.redirect.replacement: https://opinionate.sheth.io/$${1}
-      traefik.frontend.headers.SSLRedirect: true
-      traefik.frontend.headers.STSPreload: true
-      traefik.frontend.headers.STSSeconds: 2628000
-      traefik.frontend.headers.STSIncludeSubdomains: true
+      traefik.http.routers.opinionate-web.rule: Host(`opinionate.sheth.io`, `opinionate.ml`, `www.opinionate.ml`)
+      traefik.http.routers.opinionate-web.tls: true
+      traefik.http.routers.opinionate-web.middlewares: SecureTLS, opinionate-redirect
+      traefik.http.middlewares.opinionate-redirect.redirectregex.regex: ^https?://(?:www.)?opinionate.ml/(.*)
+      traefik.http.middlewares.opinionate-redirect.redirectregex.replacement: https://opinionate.sheth.io/$${1}
+      traefik.http.middlewares.opinionate-redirect.redirectregex.permanent: true
     depends_on:
       - db
       - redis
